@@ -10,8 +10,9 @@ const Sidebar = () => {
     rooms && console.log(rooms.docs.map((doc) => doc));
   }
   // Item Options
-  const OptionItem = ({ icon, title, addChannelOption }) => {
+  const OptionItem = ({ icon, title, addChannelOption, id }) => {
     const addChannel = async () => {
+      console.log('add channel fired');
       const channelName = prompt('Enter Channel Name');
       if (channelName) {
         try {
@@ -24,7 +25,10 @@ const Sidebar = () => {
       }
     };
 
-    const selectChannel = () => {};
+    const selectChannel = () => {
+      console.log('select channel fired');
+    };
+
     return (
       <Fragment>
         <OptionsContainer
@@ -103,11 +107,7 @@ const Sidebar = () => {
 
         <ChannelHeaderContainer>
           {/* show channel button */}
-          <OptionItem
-            icon='expand_more'
-            title='Channels'
-            showChannel
-          ></OptionItem>
+          <OptionItem icon='expand_more' title='Channels'></OptionItem>
         </ChannelHeaderContainer>
 
         {/* Channel Options */}
