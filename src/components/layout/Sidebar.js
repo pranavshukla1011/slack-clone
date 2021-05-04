@@ -2,27 +2,38 @@ import React, { Fragment } from 'react';
 import styled, { css } from 'styled-components';
 
 const Sidebar = () => {
-  const OptionItem = ({
-    icon,
-    title,
-    addChannelOption,
-    showLess,
-    showChannel,
-  }) => {
+  // Item Options
+  const OptionItem = ({ icon, title, addChannelOption }) => {
+    const addChannel = () => {};
+
+    const selectChannel = () => {};
     return (
       <Fragment>
-        <OptionsContainer>
+        <OptionsContainer
+          onClick={addChannelOption ? addChannel : selectChannel}
+        >
           <OptionContent left>
-            <span class='material-icons'>{icon}</span>
+            {icon ? (
+              <span class='material-icons'>{icon}</span>
+            ) : (
+              <span class='material-icons'>tag</span>
+            )}
           </OptionContent>
-          <OptionContent right>
-            <p> {title} </p>
-          </OptionContent>
+          {icon ? (
+            <OptionContent right>
+              <p> {title} </p>
+            </OptionContent>
+          ) : (
+            <OptionContent right>
+              <p> {title} </p>
+            </OptionContent>
+          )}
         </OptionsContainer>
       </Fragment>
     );
   };
 
+  //   SIDEBAR HEADER  ----default export
   const SidebarHeader = ({ username, name, isOnline }) => {
     return (
       <Fragment>
@@ -67,11 +78,13 @@ const Sidebar = () => {
         <OptionItem icon='people_alt' title='People & user groups'></OptionItem>
         <OptionItem icon='apps' title='Apps'></OptionItem>
         <OptionItem icon='content_copy' title='File Browser'></OptionItem>
-        <OptionItem icon='expand_less' title='Show Less' showLess></OptionItem>
+        {/* show Less button */}
+        <OptionItem icon='expand_less' title='Show Less'></OptionItem>
 
         {/* Channels */}
 
         <ChannelHeaderContainer>
+          {/* show channel button */}
           <OptionItem
             icon='expand_more'
             title='Channels'
@@ -86,9 +99,10 @@ const Sidebar = () => {
           title='Add Channel'
           addChannelOption
         ></OptionItem>
-        <OptionItem icon='tag' title='Youtube'></OptionItem>
-        <OptionItem icon='tag' title='Discord'></OptionItem>
-        <OptionItem icon='tag' title='Twitch'></OptionItem>
+
+        <OptionItem title='Youtube'></OptionItem>
+        <OptionItem title='Discord'></OptionItem>
+        <OptionItem title='Twitch'></OptionItem>
       </SidebarBody>
     </SidebarContainer>
   );
