@@ -1,7 +1,11 @@
 import React, { Fragment } from 'react';
 import styled, { css } from 'styled-components';
+import { db } from '../../firebase';
+// import { useCollection } from 'react-firebase-hooks';
 
 const Sidebar = () => {
+  // const [rooms, laoding, error] = useCollection(db.collection('rooms'));
+
   // Item Options
   const OptionItem = ({ icon, title, addChannelOption }) => {
     const addChannel = () => {};
