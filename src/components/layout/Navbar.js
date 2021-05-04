@@ -8,16 +8,16 @@ const Navbar = () => {
       <NavbarContainer>
         <NavbarStyle left>
           <RoundImg src={sampleImg} alt='' />
-          <i class='material-icons'>schedule</i>
+          <i className='material-icons'>schedule</i>
         </NavbarStyle>
         <NavbarStyle middle>
-          <i class='material-icons' style={{ marginLeft: '10px' }}>
+          <i className='material-icons' style={{ marginLeft: '10px' }}>
             search
           </i>
           <NavbarInput type='text' placeholder='Search...' />
         </NavbarStyle>
         <NavbarStyle right>
-          <i class='material-icons'>help_outline</i>
+          <i className='material-icons'>help_outline</i>
         </NavbarStyle>
       </NavbarContainer>
     </Fragment>

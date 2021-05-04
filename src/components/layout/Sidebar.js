@@ -4,11 +4,25 @@ import { db } from '../../firebase';
 import { useCollection } from 'react-firebase-hooks/firestore';
 
 const Sidebar = () => {
-  // const [rooms, laoding, error] = useCollection(db.collection('rooms'));
+  const [rooms, loading, error] = useCollection(db.collection('rooms'));
 
+  {
+    rooms && console.log(rooms.docs.map((doc) => doc));
+  }
   // Item Options
   const OptionItem = ({ icon, title, addChannelOption }) => {
-    const addChannel = () => {};
+    const addChannel = async () => {
+      const channelName = prompt('Enter Channel Name');
+      if (channelName) {
+        try {
+          await db.collection('rooms').add({ name: channelName });
+          console.log(`${channelName} set`);
+        } catch (err) {
+          console.log('data not loaded');
+          console.log(err.message);
+        }
+      }
+    };
 
     const selectChannel = () => {};
     return (
@@ -18,9 +32,9 @@ const Sidebar = () => {
         >
           <OptionContent left>
             {icon ? (
-              <span class='material-icons'>{icon}</span>
+              <span className='material-icons'>{icon}</span>
             ) : (
-              <span class='material-icons'>tag</span>
+              <span className='material-icons'>tag</span>
             )}
           </OptionContent>
           {icon ? (
@@ -47,7 +61,7 @@ const Sidebar = () => {
             <h3>{username}</h3>
             <p>
               <i
-                class='material-icons'
+                className='material-icons'
                 style={{ color: isOnline ? 'green' : 'grey', fontSize: '16px' }}
               >
                 fiber_manual_record
@@ -56,7 +70,7 @@ const Sidebar = () => {
             </p>
           </HeaderContent>
           <HeaderContent right>
-            <i class='material-icons'>edit</i>
+            <i className='material-icons'>edit</i>
           </HeaderContent>
         </HeaderContainer>
       </Fragment>
@@ -104,9 +118,19 @@ const Sidebar = () => {
           addChannelOption
         ></OptionItem>
 
+        {rooms &&
+          rooms.docs.map((doc) => (
+            <OptionItem
+              key={doc.id}
+              id={doc.id}
+              title={doc.data().name}
+            ></OptionItem>
+          ))}
+
+        {/* 
         <OptionItem title='Youtube'></OptionItem>
         <OptionItem title='Discord'></OptionItem>
-        <OptionItem title='Twitch'></OptionItem>
+        <OptionItem title='Twitch'></OptionItem> */}
       </SidebarBody>
     </SidebarContainer>
   );
