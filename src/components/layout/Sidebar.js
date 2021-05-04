@@ -1,14 +1,16 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { db } from '../../firebase';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import { useSelector, useDispatch } from 'react-redux';
+import { enterRoom } from '../../redux/actions/ChannelActions';
 
 const Sidebar = () => {
   const [rooms, loading, error] = useCollection(db.collection('rooms'));
 
-  {
-    rooms && console.log(rooms.docs.map((doc) => doc));
-  }
+  const roomId = useSelector((state) => state.rooms);
+  const dispatch = useDispatch();
+
   // Item Options
   const OptionItem = ({ icon, title, addChannelOption, id }) => {
     const addChannel = async () => {
@@ -27,6 +29,9 @@ const Sidebar = () => {
 
     const selectChannel = () => {
       console.log('select channel fired');
+      {
+        id && dispatch(enterRoom(id));
+      }
     };
 
     return (

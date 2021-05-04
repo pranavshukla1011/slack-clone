@@ -9,6 +9,7 @@ import store from './store';
 import Navbar from './components/layout/Navbar';
 import Sidebar from './components/layout/Sidebar';
 import Home from './components/pages/Home';
+import Chat from './components/Chat';
 
 const App = () => {
   return (
@@ -23,13 +24,8 @@ const App = () => {
             <AppBody>
               <Switch>
                 <Route exact path='/'>
-                  <Home></Home>
-                </Route>
-                <Route exact path='/about'>
-                  About
-                </Route>
-                <Route exact path='/users'>
-                  Users
+                  {/* chat */}
+                  <Chat />
                 </Route>
               </Switch>
             </AppBody>
