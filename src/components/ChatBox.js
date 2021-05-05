@@ -26,6 +26,7 @@ const ChatBox = ({ roomName, roomID, bottomRef }) => {
       timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
       user: user?.displayName,
       userImage: user?.photoURL,
+      email: user?.email,
     });
 
     setText('');
