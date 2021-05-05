@@ -8,7 +8,6 @@ import store from './store';
 
 import Navbar from './components/layout/Navbar';
 import Sidebar from './components/layout/Sidebar';
-import Home from './components/pages/Home';
 import Chat from './components/Chat';
 
 const App = () => {
@@ -20,8 +19,9 @@ const App = () => {
             {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
             <Navbar></Navbar>
-            <Sidebar></Sidebar>
+
             <AppBody>
+              <Sidebar></Sidebar>
               <Switch>
                 <Route exact path='/'>
                   {/* chat */}
@@ -36,5 +36,9 @@ const App = () => {
   );
 };
 
-const AppBody = styled.div``;
+const AppBody = styled.div`
+  display: flex;
+  height: 95vh;
+  overflow-y: auto;
+`;
 export default App;

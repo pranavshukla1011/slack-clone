@@ -2,13 +2,12 @@ import React, { Fragment, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { db } from '../../firebase';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { enterRoom } from '../../redux/actions/ChannelActions';
 
 const Sidebar = () => {
   const [rooms, loading, error] = useCollection(db.collection('rooms'));
 
-  const roomId = useSelector((state) => state.rooms);
   const dispatch = useDispatch();
 
   // Item Options
@@ -145,9 +144,10 @@ const SidebarContainer = styled.div`
   background-color: var(--slack-color);
   width: fit-content;
   color: white;
-  height: 100vh;
-  width: 30vh;
-  overflow: auto;
+  height: 100%;
+  flex: 0.2;
+  min-width: 300px;
+  overflow-y: auto;
 `;
 
 const HeaderContainer = styled.div`
