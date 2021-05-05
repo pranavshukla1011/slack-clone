@@ -1,14 +1,17 @@
 import React, { Fragment, useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import { db } from '../../firebase';
+import { auth, db } from '../../firebase';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useDispatch } from 'react-redux';
 import { enterRoom } from '../../redux/actions/ChannelActions';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Sidebar = () => {
   const [rooms, loading, error] = useCollection(db.collection('rooms'));
 
   const dispatch = useDispatch();
+
+  const [user] = useAuthState(auth);
 
   // Item Options
   const OptionItem = ({ icon, title, addChannelOption, id }) => {
@@ -88,8 +91,8 @@ const Sidebar = () => {
   return (
     <SidebarContainer>
       <SidebarHeader
-        username='shuklapranav1011'
-        name='Pranav Shukla'
+        username={user?.email?.split('@')[0]}
+        name={user?.displayName}
         isOnline
       ></SidebarHeader>
 

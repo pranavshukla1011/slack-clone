@@ -1,25 +1,38 @@
 import React, { Fragment } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import styled, { css } from 'styled-components';
+import { auth } from '../../firebase';
 import sampleImg from '../../img/sample-pic.jpg';
 
 const Navbar = () => {
+  const [user, loading] = useAuthState(auth);
+
+  console.log('user photo');
+  console.log(user);
   return (
     <Fragment>
-      <NavbarContainer>
-        <NavbarStyle left>
-          <RoundImg src={sampleImg} alt='' />
-          <i className='material-icons'>schedule</i>
-        </NavbarStyle>
-        <NavbarStyle middle>
-          <i className='material-icons' style={{ marginLeft: '10px' }}>
-            search
-          </i>
-          <NavbarInput type='text' placeholder='Search...' />
-        </NavbarStyle>
-        <NavbarStyle right>
-          <i className='material-icons'>help_outline</i>
-        </NavbarStyle>
-      </NavbarContainer>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <NavbarContainer>
+          <NavbarStyle left>
+            <RoundImg src={user?.photoURL} alt='<user_photo>' />
+            <i className='material-icons'>schedule</i>
+          </NavbarStyle>
+          <NavbarStyle middle>
+            <i className='material-icons' style={{ marginLeft: '10px' }}>
+              search
+            </i>
+            <NavbarInput
+              type='text'
+              placeholder={`Search ...    #${user.displayName}`}
+            />
+          </NavbarStyle>
+          <NavbarStyle right>
+            <i className='material-icons'>help_outline</i>
+          </NavbarStyle>
+        </NavbarContainer>
+      )}
     </Fragment>
   );
 };

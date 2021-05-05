@@ -2,9 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import ChatBox from './ChatBox';
 import { useSelector } from 'react-redux';
-import { db } from '../firebase';
+import { auth, db } from '../firebase';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import MessageItem from './MessageItem';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const Chat = () => {
   const bottomRef = useRef(null);

@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { Button } from '@material-ui/core';
-import { db } from '../firebase';
+import { auth, db } from '../firebase';
 import firebase from 'firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const ChatBox = ({ roomName, roomID, bottomRef }) => {
   const [text, setText] = useState('');
+
+  const [user] = useAuthState(auth);
 
   const onChange = (e) => {
     setText(e.target.value);
@@ -21,9 +24,8 @@ const ChatBox = ({ roomName, roomID, bottomRef }) => {
     db.collection('rooms').doc(roomID).collection('messages').add({
       message: text,
       timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-      user: 'Pranav Shukla',
-      userImage:
-        'https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg',
+      user: user?.displayName,
+      userImage: user?.photoURL,
     });
 
     setText('');
