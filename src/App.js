@@ -9,12 +9,21 @@ import store from './store';
 import Navbar from './components/layout/Navbar';
 import Sidebar from './components/layout/Sidebar';
 import Chat from './components/Chat';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './firebase';
+import Login from './components/Login';
 
 const App = () => {
+  const [user, loading, error] = useAuthState(auth);
+
   return (
     <Provider store={store}>
-      <Fragment>
-        <Router>
+      <Router>
+        {loading ? (
+          <p>Loading...</p>
+        ) : !user ? (
+          <Login></Login>
+        ) : (
           <Fragment>
             {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
@@ -30,8 +39,8 @@ const App = () => {
               </Switch>
             </AppBody>
           </Fragment>
-        </Router>
-      </Fragment>
+        )}
+      </Router>
     </Provider>
   );
 };
