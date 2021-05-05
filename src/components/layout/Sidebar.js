@@ -130,11 +130,6 @@ const Sidebar = () => {
               title={doc.data().name}
             ></OptionItem>
           ))}
-
-        {/* 
-        <OptionItem title='Youtube'></OptionItem>
-        <OptionItem title='Discord'></OptionItem>
-        <OptionItem title='Twitch'></OptionItem> */}
       </SidebarBody>
     </SidebarContainer>
   );

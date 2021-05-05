@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core';
 import { db } from '../firebase';
 import firebase from 'firebase';
 
-const ChatBox = ({ roomName, roomID }) => {
+const ChatBox = ({ roomName, roomID, bottomRef }) => {
   const [text, setText] = useState('');
 
   const onChange = (e) => {
@@ -29,6 +29,10 @@ const ChatBox = ({ roomName, roomID }) => {
     setText('');
 
     console.log('message sent');
+
+    bottomRef?.current?.scrollIntoView({
+      behavior: 'smooth',
+    });
   };
 
   return (
@@ -37,7 +41,7 @@ const ChatBox = ({ roomName, roomID }) => {
         <input
           type='text'
           value={text}
-          placeholder={`Message #ROOM`}
+          placeholder={`Message #${roomName}`}
           onChange={onChange}
         />
         <Button hidden type='submit' onClick={sendMessage}></Button>
@@ -58,10 +62,17 @@ const ChatBoxContainer = styled.div`
   > form > input {
     position: fixed;
     bottom: 30px;
-    width: 60%;
+    width: 20%;
     border: 1px solid grey;
     border-radius: 3px;
-    padding: 20px;
+    padding: 10px;
     outline: none;
+    transition-property: width, padding;
+    transition-timing-function: ease-in-out;
+    transition-duration: 300ms;
+    :focus {
+      width: 60%;
+      padding: 20px;
+    }
   }
 `;

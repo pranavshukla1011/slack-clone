@@ -1,13 +1,43 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import ChatBox from './ChatBox';
 import { useSelector } from 'react-redux';
 import { db } from '../firebase';
+import { useCollection } from 'react-firebase-hooks/firestore';
+import MessageItem from './MessageItem';
 
 const Chat = () => {
+  const bottomRef = useRef(null);
   const rooms = useSelector((state) => state.rooms);
 
   const { roomID } = rooms;
+
+  const [roomDetails] = useCollection(
+    roomID && db.collection('rooms').doc(roomID)
+  );
+
+  const [messages, loading] = useCollection(
+    roomID &&
+      db
+        .collection('rooms')
+        .doc(roomID)
+        .collection('messages')
+        .orderBy('timeStamp', 'asc')
+  );
+
+  // console.log('room Details');
+  // {
+  //   roomID && roomDetails && console.log(roomDetails.data());
+  // }
+
+  // console.log('messages');
+  // {
+  //   roomID && messages && console.log(messages.docs.map((doc) => doc.data()));
+  // }
+
+  useEffect(() => {
+    bottomRef?.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [roomID, loading]);
 
   return (
     <ChatContainer>
@@ -15,7 +45,7 @@ const Chat = () => {
         <Header>
           <HeaderLeft>
             <h4>
-              <strong>#Room-name</strong>
+              <strong>#{roomDetails?.data().name}</strong>
               <span className='material-icons'>star_border</span>
             </h4>
           </HeaderLeft>
@@ -27,9 +57,28 @@ const Chat = () => {
           </HeaderRight>
         </Header>
 
-        <ChatMessages> </ChatMessages>
+        <ChatMessages>
+          {messages?.docs.map((doc) => {
+            const { message, timeStamp, user, userImage } = doc.data();
+            return (
+              <MessageItem
+                key={doc.id} //message doc id
+                message={message}
+                timeStamp={timeStamp}
+                user={user}
+                userImage={userImage}
+              />
+            );
+          })}
+        </ChatMessages>
 
-        <ChatBox roomID={roomID}></ChatBox>
+        <ChatBox
+          roomID={roomID}
+          bottomRef={bottomRef}
+          roomName={roomDetails?.data().name}
+        ></ChatBox>
+
+        <div ref={bottomRef}></div>
       </>
     </ChatContainer>
   );
@@ -49,6 +98,9 @@ const Header = styled.div`
   align-items: center;
   padding: 20px;
   border-bottom: 1px lightgray solid;
+  position: sticky;
+  top: 0;
+  background-color: white;
 `;
 
 const HeaderLeft = styled.div`
@@ -75,4 +127,6 @@ const HeaderRight = styled.div`
   }
 `;
 
-const ChatMessages = styled.div``;
+const ChatMessages = styled.div`
+  padding-bottom: 150px;
+`;
