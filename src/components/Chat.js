@@ -6,6 +6,7 @@ import { auth, db } from '../firebase';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import MessageItem from './MessageItem';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { Button } from '@material-ui/core';
 
 const Chat = () => {
   const bottomRef = useRef(null);
@@ -26,16 +27,6 @@ const Chat = () => {
         .orderBy('timeStamp', 'asc')
   );
 
-  // console.log('room Details');
-  // {
-  //   roomID && roomDetails && console.log(roomDetails.data());
-  // }
-
-  // console.log('messages');
-  // {
-  //   roomID && messages && console.log(messages.docs.map((doc) => doc.data()));
-  // }
-
   useEffect(() => {
     bottomRef?.current?.scrollIntoView({ behavior: 'smooth' });
   }, [roomID, loading]);
@@ -46,7 +37,9 @@ const Chat = () => {
         <Header>
           <HeaderLeft>
             <h4>
-              <strong>#{roomDetails?.data().name}</strong>
+              <strong>
+                #{roomID ? roomDetails?.data().name : 'select_room'}
+              </strong>
               <span className='material-icons'>star_border</span>
             </h4>
           </HeaderLeft>
@@ -120,11 +113,11 @@ const HeaderRight = styled.div`
   > p {
     display: flex;
     align-items: center;
-    font-size: 14px;
   }
+
   > p > span {
     margin-right: 5px;
-    font-size: 16px;
+    font-size: 18px;
   }
 `;
 

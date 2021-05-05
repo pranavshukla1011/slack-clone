@@ -177,9 +177,13 @@ const HeaderContent = styled.div`
         color: black;
         padding: 10px;
         border-radius: 50%;
-        &:hover {
+        transition-property: background-color, color;
+        transition-duration: 300ms;
+        transition-timing-function: ease-in-out;
+        :hover {
           cursor: pointer;
-          opacity: 0.7;
+          background-color: var(--slack-color);
+          color: white;
         }
       }
     `}
@@ -195,9 +199,14 @@ const OptionsContainer = styled.div`
   padding: 10px 20px;
   display: flex;
   align-items: center;
+  transition-property: background-color, color;
+  transition-duration: 100ms;
+  transition-timing-function: ease-in-out;
   &:hover {
     cursor: pointer;
     opacity: 0.7;
+    background-color: white;
+    color: var(--slack-color);
   }
 `;
 
@@ -220,9 +229,14 @@ const ChannelHeaderContainer = styled.div`
   padding: 20px 0;
   margin: 20px 0;
   align-items: center;
+  transition-property: background-color, color;
+  transition-duration: 100ms;
+  transition-timing-function: ease-in-out;
   &:hover {
     cursor: pointer;
     opacity: 0.7;
+    background-color: white;
+    color: var(--slack-color);
   }
 `;
 export default Sidebar;

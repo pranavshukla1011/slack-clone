@@ -1,3 +1,4 @@
+import { Button } from '@material-ui/core';
 import React, { Fragment } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import styled, { css } from 'styled-components';
@@ -5,10 +6,13 @@ import { auth } from '../../firebase';
 import sampleImg from '../../img/sample-pic.jpg';
 
 const Navbar = () => {
-  const [user, loading] = useAuthState(auth);
+  let [user, loading] = useAuthState(auth);
 
-  console.log('user photo');
-  console.log(user);
+  const logout = (e) => {
+    e.preventDefault();
+    auth.signOut();
+  };
+
   return (
     <Fragment>
       {loading ? (
@@ -29,6 +33,8 @@ const Navbar = () => {
             />
           </NavbarStyle>
           <NavbarStyle right>
+            <Button onClick={logout}>Logout</Button>
+
             <i className='material-icons'>help_outline</i>
           </NavbarStyle>
         </NavbarContainer>
@@ -50,6 +56,23 @@ const NavbarStyle = styled.div`
   align-items: center;
   background-color: var(--slack-color);
   color: white;
+
+  > button {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-family: inherit;
+    transition-property: background-color, color;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+    color: white;
+    :hover {
+      background-color: white;
+      color: var(--slack-color);
+      cursor: pointer;
+    }
+    margin-right: 10px;
+  }
 
   ${(props) =>
     props.left &&
