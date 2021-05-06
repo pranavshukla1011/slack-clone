@@ -17,7 +17,7 @@ const Login = () => {
           alt='slack_logo'
         />
 
-        <h1>Sign In to React</h1>
+        <h1>Sign In</h1>
         <p>slack-clone</p>
 
         <Button onClick={signIn}>Sign In via Google</Button>
