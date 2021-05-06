@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 const MessageItem = ({ message, timeStamp, user, userImage }) => {
   return (
     <MessageContainer>
-      <img src={userImage} alt='' />
+      <RoundImg src={userImage} alt='' />
       <MessageContent>
         <h4>
           {user} <span>{`${timeStamp?.toDate().toUTCString()}`}</span>
@@ -18,14 +18,16 @@ const MessageItem = ({ message, timeStamp, user, userImage }) => {
 export default MessageItem;
 
 const MessageContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 40px 1fr;
   align-items: center;
   padding: 20px;
+  justify-content: space-around;
+`;
 
-  > img {
-    height: 40px;
-    border-radius: 50%;
-  }
+const RoundImg = styled.img`
+  border-radius: 50%;
+  height: 40px;
 `;
 
 const MessageContent = styled.div`

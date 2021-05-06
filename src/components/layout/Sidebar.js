@@ -5,9 +5,12 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { useDispatch } from 'react-redux';
 import { enterRoom } from '../../redux/actions/ChannelActions';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import firebase from 'firebase';
 
 const Sidebar = () => {
-  const [rooms, loading, error] = useCollection(db.collection('rooms'));
+  const [rooms, loading, error] = useCollection(
+    db.collection('rooms').orderBy('timeStamp', 'asc')
+  );
 
   const dispatch = useDispatch();
 
@@ -20,7 +23,11 @@ const Sidebar = () => {
       const channelName = prompt('Enter Channel Name');
       if (channelName) {
         try {
-          await db.collection('rooms').add({ name: channelName });
+          await db.collection('rooms').add({
+            name: channelName,
+            email: user?.email,
+            timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+          });
           console.log(`${channelName} set`);
         } catch (err) {
           console.log('data not loaded');
