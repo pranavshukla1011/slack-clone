@@ -20,9 +20,7 @@ const Sidebar = () => {
       const channelName = prompt('Enter Channel Name');
       if (channelName) {
         try {
-          await db
-            .collection('rooms')
-            .add({ name: channelName, email: user?.email });
+          await db.collection('rooms').add({ name: channelName });
           console.log(`${channelName} set`);
         } catch (err) {
           console.log('data not loaded');

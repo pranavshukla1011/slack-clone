@@ -12,6 +12,8 @@ import Chat from './components/Chat';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebase';
 import Login from './components/Login';
+import About from './components/About';
+import Error from './components/Error';
 
 const App = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -32,10 +34,9 @@ const App = () => {
             <AppBody>
               <Sidebar></Sidebar>
               <Switch>
-                <Route exact path='/'>
-                  {/* chat */}
-                  <Chat />
-                </Route>
+                <Route exact path='/' component={Chat}></Route>
+                <Route exact path='/about' component={About}></Route>
+                <Route component={Error}></Route>
               </Switch>
             </AppBody>
           </Fragment>

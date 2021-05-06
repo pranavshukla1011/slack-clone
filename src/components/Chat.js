@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import ChatBox from './ChatBox';
 import { useSelector } from 'react-redux';
@@ -20,11 +20,17 @@ const Chat = () => {
 
   const [messages, loading] = useCollection(
     roomID &&
-      db
-        .collection('rooms')
-        .doc(roomID)
-        .collection('messages')
-        .orderBy('timeStamp', 'asc')
+      (roomID === 'developer_room'
+        ? db
+            .collection('rooms')
+            .doc(roomID)
+            .collection('developer_messages')
+            .orderBy('timeStamp', 'asc')
+        : db
+            .collection('rooms')
+            .doc(roomID)
+            .collection('messages')
+            .orderBy('timeStamp', 'asc'))
   );
 
   useEffect(() => {
@@ -50,29 +56,40 @@ const Chat = () => {
             </p>
           </HeaderRight>
         </Header>
+        {roomID === null ? (
+          <Fragment>
+            {' '}
+            <p style={{ padding: '20px' }}>
+              {' '}
+              Please Select a chat room to start your realtime chat.{' '}
+            </p>
+          </Fragment>
+        ) : (
+          <>
+            <ChatMessages>
+              {messages?.docs.map((doc) => {
+                const { message, timeStamp, user, userImage } = doc.data();
+                return (
+                  <MessageItem
+                    key={doc.id} //message doc id
+                    message={message}
+                    timeStamp={timeStamp}
+                    user={user}
+                    userImage={userImage}
+                  />
+                );
+              })}
+            </ChatMessages>
 
-        <ChatMessages>
-          {messages?.docs.map((doc) => {
-            const { message, timeStamp, user, userImage } = doc.data();
-            return (
-              <MessageItem
-                key={doc.id} //message doc id
-                message={message}
-                timeStamp={timeStamp}
-                user={user}
-                userImage={userImage}
-              />
-            );
-          })}
-        </ChatMessages>
+            <ChatBox
+              roomID={roomID}
+              bottomRef={bottomRef}
+              roomName={roomDetails?.data().name}
+            ></ChatBox>
 
-        <ChatBox
-          roomID={roomID}
-          bottomRef={bottomRef}
-          roomName={roomDetails?.data().name}
-        ></ChatBox>
-
-        <div ref={bottomRef}></div>
+            <div ref={bottomRef}></div>
+          </>
+        )}
       </>
     </ChatContainer>
   );

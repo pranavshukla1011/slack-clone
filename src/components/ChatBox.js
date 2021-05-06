@@ -21,13 +21,27 @@ const ChatBox = ({ roomName, roomID, bottomRef }) => {
       return false;
     }
 
-    db.collection('rooms').doc(roomID).collection('messages').add({
-      message: text,
-      timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-      user: user?.displayName,
-      userImage: user?.photoURL,
-      email: user?.email,
-    });
+    console.log(roomID);
+
+    roomID === 'developer_room'
+      ? db
+          .collection('rooms')
+          .doc(roomID)
+          .collection('developer_messages')
+          .add({
+            message: text,
+            timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+            user: user?.displayName,
+            userImage: user?.photoURL,
+            email: user?.email,
+          })
+      : db.collection('rooms').doc(roomID).collection('messages').add({
+          message: text,
+          timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+          user: user?.displayName,
+          userImage: user?.photoURL,
+          email: user?.email,
+        });
 
     setText('');
 

@@ -4,6 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import styled, { css } from 'styled-components';
 import { auth } from '../../firebase';
 import sampleImg from '../../img/sample-pic.jpg';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   let [user, loading] = useAuthState(auth);
@@ -33,9 +34,11 @@ const Navbar = () => {
             />
           </NavbarStyle>
           <NavbarStyle right>
+            <LinkStyle to='/'>Home</LinkStyle>
+            <LinkStyle to='/about'>About</LinkStyle>
             <Button onClick={logout}>Logout</Button>
-
-            <i className='material-icons'>help_outline</i>
+            {/* 
+            <i className='material-icons'>help_outline</i> */}
           </NavbarStyle>
         </NavbarContainer>
       )}
@@ -71,6 +74,7 @@ const NavbarStyle = styled.div`
       color: var(--slack-color);
       cursor: pointer;
     }
+    padding: 0;
     margin-right: 10px;
   }
 
@@ -116,4 +120,36 @@ const NavbarInput = styled.input`
   width: 100%;
 `;
 
+const LinkStyle = styled(Link)`
+  font-family: inherit;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.02857em;
+  font-weight: 500;
+  color: white;
+  min-width: 64px;
+  box-sizing: border-box;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  font-weight: 500;
+  line-height: 1.75;
+  border-radius: 4px;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
+  color: white;
+  :hover {
+    background-color: white;
+    color: var(--slack-color);
+    cursor: pointer;
+  }
+  text-align: center;
+  cursor: pointer;
+  vertical-align: middle;
+  padding: inherit;
+  margin-right: 10px;
+`;
 export default Navbar;
