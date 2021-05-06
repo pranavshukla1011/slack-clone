@@ -1,3 +1,32 @@
+# Slack-Clone-Multiuser-Chat-App
+
+###### *visit - https://slack-clone-1011.web.app/*
+
+## **Description** 
+
+This is a real-time many to many chat app. The app is built based on Slack App UI.
+ Although all features of Slack have not been implemented yet, I will keep adding new features to this app.
+
+## Dependencies used:
+
+- ReactJs, React-hooks, React Router Dom
+- Redux, Redux-Thunk, Redux-dev-tools
+- React Styled-Components
+- Firebase/Firestore, React-firebase-hooks
+
+Visit *https://pranav-shukla.netlify.app/* to checkout more of my projects.
+
+Login:
+![Login](https://user-images.githubusercontent.com/55877875/117306623-728eed00-ae9d-11eb-9afc-a7fe678881da.png)
+
+Chat:
+![chat](https://user-images.githubusercontent.com/55877875/117306666-7de21880-ae9d-11eb-8ffb-13e045bd530b.png)
+
+About:
+![Screenshot from 2021-05-06 18-59-42](https://user-images.githubusercontent.com/55877875/117306650-791d6480-ae9d-11eb-8ef9-6cc2d935f958.png)
+
+/------------------------------------------------------------------------------------------------------------------------------------------------/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Available Scripts
