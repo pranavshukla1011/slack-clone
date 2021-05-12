@@ -7,6 +7,8 @@
 This is a real-time many to many chat app. The app is built based on Slack App UI.
  Although all features of Slack have not been implemented yet, I will keep adding new features to this app.
 
+**Visit :** https://pranav-shukla.netlify.app/  to see all my projects.
+
 ## Dependencies used:
 
 - ReactJs, React-hooks, React Router Dom
