@@ -14,8 +14,6 @@ This is a real-time many to many chat app. The app is built based on Slack App U
 - React Styled-Components
 - Firebase/Firestore, React-firebase-hooks
 
-Visit *https://pranav-shukla.netlify.app/* to checkout more of my projects.
-
 Login:
 ![Login](https://user-images.githubusercontent.com/55877875/117306623-728eed00-ae9d-11eb-9afc-a7fe678881da.png)
 
